@@ -54,10 +54,18 @@ rockButton.addEventListener('click', ()=>{game("rock")});
 paperButton.addEventListener('click', ()=>{game("paper")});
 scissorsButton.addEventListener('click', ()=>{game("scissors")});
 
+let numPlayerWins = 0;
+let numCompWins = 0;
+//let numTies = 0;
+
+function updateScore(winner, score){
+    let winnerScorePara = document.querySelector(`p#${winner}Score`);
+    winnerScorePara.innerText=score;
+
+}
+
 function game(playerSelection){
-    let numPlayerWins = 0;
-    let numCompWins = 0;
-    let numTies = 0;
+    
     //for (let i=1; i<6; i++){
         //let playerSelection = prompt("Choose 'rock', 'paper', or 'scissors'!");
         /*while(playerSelection.toLowerCase() !== "rock" && playerSelection.toLowerCase() !== "paper" && playerSelection.toLowerCase() !== "scissors"){
@@ -68,13 +76,13 @@ function game(playerSelection){
         let result = playRound(playerSelection, computerSelection);
         console.log(result[1]);
         if(result[0] === 1){
-            numPlayerWins++;
+            updateScore("player", ++numPlayerWins);
         }
         else if(result[0] === 0){
-            numTies++;
+            //numTies++;
         }
         else if(result[0] === -1){
-            numCompWins++;
+            updateScore("comp", ++numCompWins);
         }
         else return;
 
