@@ -8,35 +8,35 @@ function getComputerChoice(){
 function playRound(playerSelection, computerSelection) {
 
     if(playerSelection.toLowerCase() === computerSelection.toLowerCase()){
-        return [0, "It's a tie!"];
+        return [0, "It's a tie this round!"];
     }
 
     else if(playerSelection.toLowerCase() === "rock"){
         if(computerSelection.toLowerCase() === "paper"){
-            return [-1, "You lose! Paper beats rock."];
+            return [-1, "You lose this round! Paper beats rock."];
         }
         else if(computerSelection.toLowerCase() === "scissors"){
-            return [1, "You win! Rock beats scissors."];
+            return [1, "You win this round! Rock beats scissors."];
         }
         else return `${computerSelection} is not a valid input`;
     }
 
     else if(playerSelection.toLowerCase() === "paper"){
         if(computerSelection.toLowerCase() === "rock"){
-            return [1, "You win! Paper beats rock."];
+            return [1, "You win this round! Paper beats rock."];
         }
         else if(computerSelection.toLowerCase() === "scissors"){
-            return [-1, "You lose! Scissors beats paper."];
+            return [-1, "You lose this round! Scissors beats paper."];
         }
         else return `${computerSelection} is not a valid input`;
     }
 
     else if(playerSelection.toLowerCase() === "scissors"){
         if(computerSelection.toLowerCase() === "rock"){
-            return [-1, "You lose! Rock beats scissors."];
+            return [-1, "You lose this round! Rock beats scissors."];
         }
         else if(computerSelection.toLowerCase() === "paper"){
-            return [1, "You win! Scissors beats paper."];
+            return [1, "You win this round! Scissors beats paper."];
         }
         else return `${computerSelection} is not a valid input`;
     }
@@ -50,6 +50,7 @@ const rockButton = document.querySelector('#rock');
 const paperButton = document.querySelector('#paper');
 const scissorsButton = document.querySelector('#scissors');
 const winnerDiv = document.querySelector("#winner");
+const roundResultDisplay = document.querySelector("#roundResult");
 
 rockButton.addEventListener('click', ()=>{game("rock")});
 paperButton.addEventListener('click', ()=>{game("paper")});
@@ -66,36 +67,24 @@ function updateScore(winner, score){
 }
 
 function game(playerSelection){
-    
-    //for (let i=1; i<6; i++){
-        //let playerSelection = prompt("Choose 'rock', 'paper', or 'scissors'!");
-        /*while(playerSelection.toLowerCase() !== "rock" && playerSelection.toLowerCase() !== "paper" && playerSelection.toLowerCase() !== "scissors"){
-            playerSelection = prompt("Try again. Choose 'rock', 'paper', or 'scissors'!")
-        }*/
-        if(numPlayerWins === 5 || numCompWins === 5) return false;
 
-
-        let computerSelection = getComputerChoice();
-        console.log(`Computer played ${computerSelection}`);
-        let result = playRound(playerSelection, computerSelection);
-        console.log(result[1]);
-        if(result[0] === 1){
-            updateScore("player", ++numPlayerWins);
-            if(numPlayerWins === 5) announceWinner("player");
-        }
-        else if(result[0] === 0){
-            //numTies++;
-        }
-        else if(result[0] === -1){
-            updateScore("comp", ++numCompWins);
-            if(numCompWins === 5) announceWinner("comp");
-        }
-        else return;
-
-        //console.log(`Your record after Round ${i}: ${numPlayerWins}-${numCompWins}-${numTies}`);
-    //}
-
-    //console.log(numPlayerWins>numCompWins?"You win!":(numPlayerWins<numCompWins?"You lose :(": "Draw."));
+    if(numPlayerWins === 5 || numCompWins === 5) return false;
+    let computerSelection = getComputerChoice();
+    roundResultDisplay.innerText = `Computer played ${computerSelection}.`;
+    let result = playRound(playerSelection, computerSelection);
+    roundResultDisplay.innerText += " " + result[1];
+    if(result[0] === 1){
+        updateScore("player", ++numPlayerWins);
+        if(numPlayerWins === 5) announceWinner("player");
+    }
+    else if(result[0] === 0){
+        //numTies++;
+    }
+    else if(result[0] === -1){
+        updateScore("comp", ++numCompWins);
+        if(numCompWins === 5) announceWinner("comp");
+    }
+    else return;
     return true;
 }
 
