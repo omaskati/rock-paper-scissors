@@ -49,6 +49,7 @@ function playRound(playerSelection, computerSelection) {
 const rockButton = document.querySelector('#rock');
 const paperButton = document.querySelector('#paper');
 const scissorsButton = document.querySelector('#scissors');
+const winnerDiv = document.querySelector("#winner");
 
 rockButton.addEventListener('click', ()=>{game("rock")});
 paperButton.addEventListener('click', ()=>{game("paper")});
@@ -71,18 +72,23 @@ function game(playerSelection){
         /*while(playerSelection.toLowerCase() !== "rock" && playerSelection.toLowerCase() !== "paper" && playerSelection.toLowerCase() !== "scissors"){
             playerSelection = prompt("Try again. Choose 'rock', 'paper', or 'scissors'!")
         }*/
+        if(numPlayerWins === 5 || numCompWins === 5) return false;
+
+
         let computerSelection = getComputerChoice();
         console.log(`Computer played ${computerSelection}`);
         let result = playRound(playerSelection, computerSelection);
         console.log(result[1]);
         if(result[0] === 1){
             updateScore("player", ++numPlayerWins);
+            if(numPlayerWins === 5) announceWinner("player");
         }
         else if(result[0] === 0){
             //numTies++;
         }
         else if(result[0] === -1){
             updateScore("comp", ++numCompWins);
+            if(numCompWins === 5) announceWinner("comp");
         }
         else return;
 
@@ -91,4 +97,10 @@ function game(playerSelection){
 
     //console.log(numPlayerWins>numCompWins?"You win!":(numPlayerWins<numCompWins?"You lose :(": "Draw."));
     return true;
+}
+
+function announceWinner(winner){
+    let winnerAnnouncement = document.createElement("h2");
+    winnerAnnouncement.innerText=`${winner.toUpperCase()} wins the game!`;
+    winnerDiv.appendChild(winnerAnnouncement);
 }
