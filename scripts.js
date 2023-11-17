@@ -46,15 +46,23 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function game(){
+const rockButton = document.querySelector('#rock');
+const paperButton = document.querySelector('#paper');
+const scissorsButton = document.querySelector('#scissors');
+
+rockButton.addEventListener('click', ()=>{game("rock")});
+paperButton.addEventListener('click', ()=>{game("paper")});
+scissorsButton.addEventListener('click', ()=>{game("scissors")});
+
+function game(playerSelection){
     let numPlayerWins = 0;
     let numCompWins = 0;
     let numTies = 0;
-    for (let i=1; i<6; i++){
-        let playerSelection = prompt("Choose 'rock', 'paper', or 'scissors'!");
-        while(playerSelection.toLowerCase() !== "rock" && playerSelection.toLowerCase() !== "paper" && playerSelection.toLowerCase() !== "scissors"){
+    //for (let i=1; i<6; i++){
+        //let playerSelection = prompt("Choose 'rock', 'paper', or 'scissors'!");
+        /*while(playerSelection.toLowerCase() !== "rock" && playerSelection.toLowerCase() !== "paper" && playerSelection.toLowerCase() !== "scissors"){
             playerSelection = prompt("Try again. Choose 'rock', 'paper', or 'scissors'!")
-        }
+        }*/
         let computerSelection = getComputerChoice();
         console.log(`Computer played ${computerSelection}`);
         let result = playRound(playerSelection, computerSelection);
@@ -70,9 +78,9 @@ function game(){
         }
         else return;
 
-        console.log(`Your record after Round ${i}: ${numPlayerWins}-${numCompWins}-${numTies}`);
-    }
+        //console.log(`Your record after Round ${i}: ${numPlayerWins}-${numCompWins}-${numTies}`);
+    //}
 
-    console.log(numPlayerWins>numCompWins?"You win!":(numPlayerWins<numCompWins?"You lose :(": "Draw."));
+    //console.log(numPlayerWins>numCompWins?"You win!":(numPlayerWins<numCompWins?"You lose :(": "Draw."));
     return true;
 }
